@@ -134,6 +134,73 @@ This syntax follows Angular's closely, importing packages up top and using Es6/T
 ## Commit cc-03-subcomponents
 
 Organize components by feature
-$ mkdir client/app/components
+$ mkdir client/app/components // note - can only make one new dir at a time
+$ mkdir client/app/components/categories
+
+// Make modure for that feature (make following files)
+// touch client/app/components/categories/categories.module.js
+Angular ES6 Component
+1. module
+2. component as class
+3. template
+4. styles
+
+Simple Template Component Structure:
+1. Import template and styles
+2. Declare const as a component 
+?? How do the styles get hooked in ??
+
+```
+import template from './categories.html';
+import './categories.styl';
+
+const CategoriesComponent = {
+    template
+}
+
+export default CategoriesComponent;
+```
+
+Module Setup for CategoriesComponent:
+This may look strange with both module and component, but this is the module meant to just connect the component to this parent module.
+1. Import angular
+2. Import the component
+3. Do typical angularjs setup, but put into a constant, and export
+4. Note - default export ensures only one export for this file/module
+
+```
+// categories.module.js
+import angular from 'angular';
+import CategoriesComponent from './categories.component';
+
+const CategoriesModule = angular.module('app.categories',[])
+    .component('categories', CategoriesComponent);
+
+export default CategoriesModule;
+```
+
+Create a module for all component modules
+1. Create new components.module.js file
+2. Notice the .name, unlike Angular 2+
+```
+import angular from 'angular';
+import CategoriesModule from './categories/categories.module';
+
+const ComponentsModule = angular.module('app.components', [
+    CategoriesModule.name /** ng1 vs. ngx **/
+]);
+
+export default ComponentsModule;
+```
+
+
+
+
+
+
+
+
+
+
 
 
