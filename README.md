@@ -195,7 +195,56 @@ export default ComponentsModule;
 
 /************************** Component Controllers **************************/
 
-## Commit cc-03-component-controllers
+## Commit cc-04-component-controllers
+Using ES6 classes to make controllers
+
+1. Make new file for categories.controller.js
+2. Class Structure
+  - constructor
+    - init default MOCK data --- not for API calls, like ngx
+  - onInit ...
+  - onDestroy ...
+3. Export as default
+```
+class CategoriesController {
+    constructor() {
+        this.categories = [
+            {"id": 0, "name": "Development"},
+            {"id": 1, "name": "Design"},
+            {"id": 2, "name": "Exercise"},
+            {"id": 3, "name": "Humor"}
+        ];
+    }
+}
+
+export default CategoriesController;
+```
+
+4. Import from component, using shorthand object initializers
+```
+import template from './categories.html';
+import controller from './categories.controller';
+import './categories.styl';
+
+// use ES6 shorthand syntax for object initializers
+const CategoriesComponent = {
+    template,
+    controller,
+    controllerAs: 'categoriesListCtrl'
+}
+
+export default CategoriesComponent;
+```
+
+5. Hook up the ng-repeater in the template
+```
+
+```
+ 
+
+
+
+
 
 
 
