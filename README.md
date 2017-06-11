@@ -134,6 +134,25 @@ This syntax follows Angular's closely, importing packages up top and using Es6/T
 ## Commit cc-03-subcomponents
 
 Organize components by feature
-$ mkdir client/app/components
+$ mkdir client/app/components // note - can only make one new dir at a time
+$ mkdir client/app/components/categories
+
+// Make modure for that feature (make following files)
+// touch client/app/components/categories/categories.module.js
+Angular ES6 Component
+1. module
+2. component as class
+3. template
+4. styles
+
+
+
+
+
+
+
+
+
+
 
 
