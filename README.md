@@ -173,7 +173,7 @@ This may look strange with both module and component, but this is the module mea
 import angular from 'angular';
 import CategoriesComponent from './categories.component';
 
-const CategoriesModule = angular.module('app.categories',[])
+const CategoriesModule = angular.module('components.categories',[])
     .component('categories', CategoriesComponent);
 
 export default CategoriesModule;
@@ -186,12 +186,16 @@ Create a module for all component modules
 import angular from 'angular';
 import CategoriesModule from './categories/categories.module';
 
-const ComponentsModule = angular.module('app.components', [
+const ComponentsModule = angular.module('components', [
     CategoriesModule.name /** ng1 vs. ngx **/
 ]);
 
 export default ComponentsModule;
 ```
+
+/************************** Component Controllers **************************/
+
+## Commit cc-03-component-controllers
 
 
 
