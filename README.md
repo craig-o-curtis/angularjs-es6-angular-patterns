@@ -145,7 +145,23 @@ Angular ES6 Component
 3. template
 4. styles
 
+Simple Template Component Structure:
+1. Import template and styles
+2. Declare const as a component 
+?? How do the styles get hooked in ??
 
+```
+import template from './categories.html';
+import './categories.styl';
+
+const CategoriesComponent = {
+    template
+}
+
+export default CategoriesComponent;
+```
+
+Module Setup for CategoriesComponent:
 
 
 
