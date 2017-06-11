@@ -1,22 +1,113 @@
+## Angular patterns in AngularJS
 
-# An Angular 1.x and ES6 bookmark manager
-This is a simple bookmark manager built with AngularJS, ES6, Webpack, and Gulp.
-## Getting Started
-You will need `node` (`brew install node` or https://nodejs.org/en/) and `npm` (which ships with node).
 
-## Installing
-```bash
-git clone https://github.com/simpulton/eggly-es6.git
-cd eggly-es6
-npm i
-gulp
+// Notes
+
+From original project:
+https://github.com/simpulton/eggly-es6/tree/00-start
+
+
+Build System - Webpack
+Language - ES6
+Angular - 1.5.7
+
+// git branch 01-compiling
+Using Webpack
+
+### setup webpack.config.js
+$ touch webpack.config.js
+```
+module.exports = {
+    devtool: 'sourcemap', 
+    output: {
+        filename: 'bundle.js'
+    },
+    // define how to load modules
+    module: {
+        loaders: [
+            { test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate!babel' }, // grab js, not node_modules, get ng-annotate and babel
+            { test: /\.html$/, loader: 'raw' }, // takes raw content of HTML file and puts it in bundle
+            { test: /\.css$/, loader: 'style!css' },  // take css and resolve it
+            { test: /\.styl$/, loader: 'style!css!stylus' }, // add it in a style tag in the DOM
+            { test: /\.(ttf|otf|eot|svg|woff(2)?)$/, loader: 'url' } // grab assets SVGS, fonts, etc. and generate a URL for it
+        ]
+    }
+};
 ```
 
-## Generating Components
-There is a convenient Gulp task called `component` to generate components. To do so, simply run `gulp component --name componentName`.
+### In gulpfile.babel.js ---
+1. import webpack-stream
+2. create a webpack task
+3. add webpack task
+4. add webpack task to default and watch tasks
+```
+'use strict';
 
-The parameter following the `--name` flag is the name of the component to be created. Ensure that it is unique or it will overwrite the preexisting identically-named component.
+import gulp     from 'gulp';
+import webpack  from 'webpack-stream'; // add webpack - -stream can communicate with webpack
+import path     from 'path';
+import sync     from 'run-sequence';
+import browserSync    from 'browser-sync';
 
-The component will be created, by default, inside `client/app/components`. To change this, apply the `--parent` flag, followed by a path relative to `client/app/components/`.
+let reload = () => browserSync.reload();
+let root = 'client';
 
-Because the argument to `--name` applies to the folder name **and** the actual component name, make sure to camelcase the component names.
+// helper method for resolving paths
+let resolveToApp = (glob) => {
+  glob = glob || '';
+  return path.join(root, 'app', glob); // app/{glob}
+};
+
+// map of all paths
+let paths = {
+  js: resolveToApp('**/*!(.spec.js).js'), // exclude spec files
+  styl: resolveToApp('**/*.styl'), // stylesheets
+  html: [
+    resolveToApp('**/*.html'),
+    path.join(root, 'index.html')
+  ],
+  entry: path.join(root, 'app/app.js'),
+  output: root
+};
+
+gulp.task('reload', done => {
+  reload();
+  done()
+});
+
+gulp.task('webpack', () => {
+  return gulp.src(paths.entry)
+    .pipe(webpack(require('./webpack.config'))) // take all files from entry point, pass to webpack with webpack.config.js file
+    .pipe(gulp.dest(paths.output)); // take bundje.js output and send to output
+    // add this to default task and watch task
+});
+
+gulp.task('serve', () => {
+  browserSync({
+    port: process.env.PORT || 3000,
+    open: false,
+    server: { baseDir: root }
+  });
+});
+
+gulp.task('watch', ['serve'], () => {
+  let allPaths = [].concat([paths.js], paths.html, [paths.styl]);
+  gulp.watch(allPaths, ['webpack', 'reload']);
+});
+
+// gulp.task('default', ['watch']); // original default
+gulp.task('default', (done) => {
+  sync('webpack', 'serve', 'watch', done)
+});
+```
+
+5. Create new app.js file to verify this works
+```
+// client/app/app.js
+console.log('testing');
+```
+6. include bundle.js in index.html
+```
+<script src="bundle.js"></script>
+```
+7. test in browser with npm start
