@@ -173,7 +173,7 @@ This may look strange with both module and component, but this is the module mea
 import angular from 'angular';
 import CategoriesComponent from './categories.component';
 
-const CategoriesModule = angular.module('app.categories',[])
+const CategoriesModule = angular.module('components.categories',[])
     .component('categories', CategoriesComponent);
 
 export default CategoriesModule;
@@ -186,12 +186,82 @@ Create a module for all component modules
 import angular from 'angular';
 import CategoriesModule from './categories/categories.module';
 
-const ComponentsModule = angular.module('app.components', [
+const ComponentsModule = angular.module('components', [
     CategoriesModule.name /** ng1 vs. ngx **/
 ]);
 
 export default ComponentsModule;
 ```
+
+/************************** Component Controllers **************************/
+
+## Commit cc-04-component-controllers
+Using ES6 classes to make controllers
+
+1. Make new file for categories.controller.js
+2. Class Structure
+  - constructor
+    - init default MOCK data --- not for API calls, like ngx
+  - onInit ...
+  - onDestroy ...
+3. Export as default
+```
+class CategoriesController {
+    constructor() {
+        this.categories = [
+            {"id": 0, "name": "Development"},
+            {"id": 1, "name": "Design"},
+            {"id": 2, "name": "Exercise"},
+            {"id": 3, "name": "Humor"}
+        ];
+    }
+}
+
+export default CategoriesController;
+```
+
+4. Import from component, using shorthand object initializers
+```
+import template from './categories.html';
+// import controller from './categories.controller'; // shorthand, but less semantic
+import CategoriesController from './categories.controller';
+import './categories.styl';
+
+const categoriesComponent = {
+  template,
+  // controller, // shorthand, but less semantic
+  controller: CategoriesController,
+  controllerAs: 'categoriesListCtrl'
+};
+
+export default categoriesComponent;
+
+```
+
+5. Hook up the ng-repeater in the template
+```
+<div>
+	<a>
+		<img class="logo" src="assets/img/eggly-logo.png">
+	</a>
+	<ul class="nav nav-sidebar">
+		<li class="category-item"
+			ng-repeat="category in categoriesListCtrl.categories">{{category.name}}</li>
+	</ul>
+</div>
+```
+
+
+/************************** Services **************************/
+
+## Commit cc-05-creating-services
+
+
+ 
+
+
+
+
 
 
 
