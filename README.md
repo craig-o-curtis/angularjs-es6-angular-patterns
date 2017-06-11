@@ -129,6 +129,11 @@ This syntax follows Angular's closely, importing packages up top and using Es6/T
 ** Notice inclusiion of bootstrap-css-only and normalize here
 ** Notice use of ng-strict-di in index.html for DI-safe syntax
 
+/************************** Root Component **************************/
 
+## Commit cc-03-subcomponents
+
+Organize components by feature
+$ mkdir client/app/components
 
 
