@@ -223,23 +223,40 @@ export default CategoriesController;
 4. Import from component, using shorthand object initializers
 ```
 import template from './categories.html';
-import controller from './categories.controller';
+// import controller from './categories.controller'; // shorthand, but less semantic
+import CategoriesController from './categories.controller';
 import './categories.styl';
 
-// use ES6 shorthand syntax for object initializers
-const CategoriesComponent = {
-    template,
-    controller,
-    controllerAs: 'categoriesListCtrl'
-}
+const categoriesComponent = {
+  template,
+  // controller, // shorthand, but less semantic
+  controller: CategoriesController,
+  controllerAs: 'categoriesListCtrl'
+};
 
-export default CategoriesComponent;
+export default categoriesComponent;
+
 ```
 
 5. Hook up the ng-repeater in the template
 ```
-
+<div>
+	<a>
+		<img class="logo" src="assets/img/eggly-logo.png">
+	</a>
+	<ul class="nav nav-sidebar">
+		<li class="category-item"
+			ng-repeat="category in categoriesListCtrl.categories">{{category.name}}</li>
+	</ul>
+</div>
 ```
+
+
+/************************** Services **************************/
+
+## Commit cc-05-creating-services
+
+
  
 
 
