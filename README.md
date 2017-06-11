@@ -125,6 +125,15 @@ $ touch client/app/app.html
 $ touch client/app/app.styl
 $ touch client/app/app.component.js
 
+This syntax follows Angular's closely, importing packages up top and using Es6/TS-esque syntax.
 ** Notice inclusiion of bootstrap-css-only and normalize here
+** Notice use of ng-strict-di in index.html for DI-safe syntax
+
+/************************** Root Component **************************/
+
+## Commit cc-03-subcomponents
+
+Organize components by feature
+$ mkdir client/app/components
 
 
