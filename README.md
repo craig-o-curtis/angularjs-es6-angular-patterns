@@ -125,6 +125,6 @@ $ touch client/app/app.html
 $ touch client/app/app.styl
 $ touch client/app/app.component.js
 
-
+** Notice inclusiion of bootstrap-css-only and normalize here
 
 
