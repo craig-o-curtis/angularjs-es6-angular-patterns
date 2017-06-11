@@ -1,6 +1,7 @@
 'use strict';
 
 import gulp     from 'gulp';
+import webpack  from 'webpack-stream'; // add webpack - -stream can communicate with webpack
 import path     from 'path';
 import sync     from 'run-sequence';
 import browserSync    from 'browser-sync';
@@ -31,6 +32,13 @@ gulp.task('reload', done => {
   done()
 });
 
+gulp.task('webpack', () => {
+  return gulp.src(paths.entry)
+    .pipe(webpack(require('./webpack.config'))) // take all files from entry point, pass to webpack with webpack.config.js file
+    .pipe(gulp.dest(paths.output)); // take bundje.js output and send to output
+    // add this to default task and watch task
+});
+
 gulp.task('serve', () => {
   browserSync({
     port: process.env.PORT || 3000,
@@ -41,7 +49,11 @@ gulp.task('serve', () => {
 
 gulp.task('watch', ['serve'], () => {
   let allPaths = [].concat([paths.js], paths.html, [paths.styl]);
-  gulp.watch(allPaths, ['reload']);
+  gulp.watch(allPaths, ['webpack', 'reload']);
 });
 
-gulp.task('default', ['watch']);
+// gulp.task('default', ['watch']); // original default
+gulp.task('default', (done) => {
+  sync('webpack', 'serve', 'watch', done)
+});
+
