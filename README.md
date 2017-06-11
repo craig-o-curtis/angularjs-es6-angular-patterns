@@ -126,5 +126,7 @@ $ touch client/app/app.styl
 $ touch client/app/app.component.js
 
 ** Notice inclusiion of bootstrap-css-only and normalize here
+** Notice use of ng-strict-di in index.html for DI-safe syntax
+
 
 

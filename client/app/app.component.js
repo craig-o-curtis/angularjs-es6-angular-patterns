@@ -1,9 +1,8 @@
 import template from './app.html';
 import './app.styl';
 
-const AppComponent = {
-  template
-};
+// es6 syntax - makes object {"template": template}
+const AppComponent = { template };
 
 export default AppComponent;
 
