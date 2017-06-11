@@ -162,6 +162,36 @@ export default CategoriesComponent;
 ```
 
 Module Setup for CategoriesComponent:
+This may look strange with both module and component, but this is the module meant to just connect the component to this parent module.
+1. Import angular
+2. Import the component
+3. Do typical angularjs setup, but put into a constant, and export
+4. Note - default export ensures only one export for this file/module
+
+```
+// categories.module.js
+import angular from 'angular';
+import CategoriesComponent from './categories.component';
+
+const CategoriesModule = angular.module('app.categories',[])
+    .component('categories', CategoriesComponent);
+
+export default CategoriesModule;
+```
+
+Create a module for all component modules
+1. Create new components.module.js file
+2. Notice the .name, unlike Angular 2+
+```
+import angular from 'angular';
+import CategoriesModule from './categories/categories.module';
+
+const ComponentsModule = angular.module('app.components', [
+    CategoriesModule.name /** ng1 vs. ngx **/
+]);
+
+export default ComponentsModule;
+```
 
 
 
