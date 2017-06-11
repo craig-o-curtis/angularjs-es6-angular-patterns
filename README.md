@@ -7,6 +7,10 @@ From original project:
 https://github.com/simpulton/eggly-es6/tree/00-start
 
 
+/************************** Webpack Setup **************************/
+
+## Commit cc-01-compiling - Setting up Webpack 
+
 Build System - Webpack
 Language - ES6
 Angular - 1.5.7
@@ -111,3 +115,16 @@ console.log('testing');
 <script src="bundle.js"></script>
 ```
 7. test in browser with npm start
+
+/************************** Root Component **************************/
+
+## Commit cc-02-root-component
+
+No longer use ng-app, but boostrap to top-level component
+$ touch client/app/app.html
+$ touch client/app/app.styl
+$ touch client/app/app.component.js
+
+** Notice inclusiion of bootstrap-css-only and normalize here
+
+
