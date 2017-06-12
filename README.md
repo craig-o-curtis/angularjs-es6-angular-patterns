@@ -308,6 +308,57 @@ class CategoriesController {
 export default CategoriesController;
 ```
 
+/************************** Dependency Injection **************************/
+
+## Commit cc-06-dependency-injection
+
+Note on Functions
+- add directly to class rather than using function keyword
+```
+    add(category) {
+        this.category = category;
+    }
+    returnCategory() {
+        return this.category; // this refers to the class
+    }
+```
+
+Using the $q service
+1. Inject in constructor
+2. Use 'ngInject'
+3. Assign to class via this.
+4. Resolve with this.$q.when()
+
+```
+// categories.model.js
+class CategoriesModel {
+    'ngInject'; // fix errors
+    this.$q = $q; // assign to local variable
+    constructor($q) {
+        ...
+    }
+    
+    getCategories() {
+        return this.$q.when(this.categories);
+    }
+```
+5. Consume the promise in the controller
+``` 
+class CategoriesController {
+    constructor(CategoriesModel) {
+        'ngInject';
+        CategoriesModel.getCategories()
+            .then( result => this.categories = result);
+    ...
+```
+
+
+
+
+
+
+
+
 
 
 
