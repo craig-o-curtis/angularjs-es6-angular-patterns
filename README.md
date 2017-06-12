@@ -354,6 +354,12 @@ class CategoriesController {
 
 /************************** Lifecycle Hooks **************************/
 
+// Dumb components
+- have no logic
+- only talk to view and 
+- only relate user events back to parent component
+* makes testing easier to pinpoint
+
 ## Commit cc-07-lifecycle-hooks
 
 
