@@ -4,7 +4,9 @@
 	</a>
 	<ul class="nav nav-sidebar">
 		<li ng-repeat="category in categoriesListCtrl.categories">
-			<category-item category="category"></category-item>
+			<category-item
+				category="category"
+				selected="categoriesListCtrl.onCategorySelected(category)"></category-item>
 		</li>
 	</ul>
 </div>

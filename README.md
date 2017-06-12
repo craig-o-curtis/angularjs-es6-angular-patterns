@@ -352,7 +352,8 @@ class CategoriesController {
     ...
 ```
 
-/************************** Lifecycle Hooks **************************/
+/************************** Dumb Components **************************/
+## Commit cc-07-lifecycle-hooks // yes, part of this commit
 
 // Dumb components
 - have no logic
@@ -415,14 +416,73 @@ const CategoriesModule = angular.module('components.categories',[
 
 - To:
 ```
+		<li ng-repeat="category in categoriesListCtrl.categories">
+			<category-item category="category"></category-item>
+		</li>
+```
+
+// Talk to parent
+1. Use & syntax, define method
+```
+// category-item.component.js
+...
+  bindings: {
+    category: '<', // one-way data-binding
+    selected: '&' // talk to parent
+  },
+...
+```
+
+2. Send object back up to parent
+```
+// category-item.html
+...
+    ng-click="categoryItemCtrl.selected({category:categoryItemCtrl.category})"
+...
+```
+
+3. Capture selected event from parent
+```
+// categories.html
+...
+    <category-item
+        category="category"
+        selected="categoriesListCtrl.onCategorySelected(category)"></category-item>
+...
+```
+
+6. Define on- event in parent controller
+```
+// categories.controller.js
 
 ```
 
 
 
 
-
+/************************** Lifecycle Hooks **************************/
 ## Commit cc-07-lifecycle-hooks
+
+
+$onInit
+- for API data
+- ** don't load API data in constructor
+
+```
+// categories.controller.js
+    ...
+    constructor(CategoriesModel) {
+        'ngInject'; 
+        this.CategoriesModel = CategoriesModel;
+    }
+    
+    $onInit() {
+        this.CategoriesModel.getCategories()
+            .then( result => this.categories = result );
+    }
+    ...
+```
+
 
 
 
