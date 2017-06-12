@@ -255,11 +255,58 @@ export default categoriesComponent;
 /************************** Services **************************/
 
 ## Commit cc-05-creating-services
+** Everything is just a class- controllers, services (not components and modules though...)
 
+1. Create common/models // going with this for now, even though this is a service
+```
+class CategoriesModel {
+    constructor() {
+        this.categories = [
+            {"id": 0, "name": "Development"},
+            {"id": 1, "name": "Design"},
+            {"id": 2, "name": "Exercise"},
+            {"id": 3, "name": "Humor"}
+        ];
+    }
+}
 
+export default CategoriesModel;
+```
+
+2. Create module for common
+```
+import angular from 'angular';
+import CategoriesModel from './models/categories.model';
+
+const CommonModule = angular.module('common', [])
+    .service('CategoriesModel', CategoriesModel);
+
+export default CommonModule;
+```
+
+3. Import in app.js
+```
+    ...
+    import CommonModule from './common/common.module';
+    ...
+        CommonModule.name
+    ...
+```
  
+4. Change categories controller to use this 'service' model
+- Like ngx, inject services in the constructor.
+- use 'ngInject'; to fix strict mode error to resolve dependencies
+```
+class CategoriesController {
+    // inject models/services in constructor
+    constructor(CategoriesModel) {
+        'ngInject'; // needed in strict mode
+        this.categories = CategoriesModel.categories; // mock data, not HTTP call
+    }
+}
 
-
+export default CategoriesController;
+```
 
 
 
