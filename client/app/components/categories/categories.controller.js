@@ -1,11 +1,22 @@
 class CategoriesController {
-    constructor() {
-        this.categories = [
-            {"id": 0, "name": "Development"},
-            {"id": 1, "name": "Design"},
-            {"id": 2, "name": "Exercise"},
-            {"id": 3, "name": "Humor"}
-        ];
+    // inject models/services in constructor
+    constructor(CategoriesModel) {
+        'ngInject'; // needed in strict mode to resolve dependencies
+
+        // Set service to local method
+        this.CategoriesModel = CategoriesModel;
+    }
+
+    // onInit for loading API data / promised dta
+    $onInit() {
+        this.CategoriesModel.getCategories()
+            .then( result => this.categories = result );
+    }
+
+
+    // listen for event from child component via '&'
+    onCategorySelected(category) {
+        alert(`You clicked ${category.name}`);
     }
 }
 

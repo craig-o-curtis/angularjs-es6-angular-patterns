@@ -3,11 +3,11 @@ import template from './categories.html';
 import CategoriesController from './categories.controller';
 import './categories.styl';
 
-const categoriesComponent = {
-  template,
-  // controller, // shorthand, but less semantic
-  controller: CategoriesController,
-  controllerAs: 'categoriesListCtrl'
+const CategoriesComponent = {
+    template,
+    // controller, // shorthand, but less semantic
+    controller: CategoriesController,
+    controllerAs: 'categoriesListCtrl'
 };
 
-export default categoriesComponent;
+export default CategoriesComponent;

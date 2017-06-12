@@ -255,9 +255,240 @@ export default categoriesComponent;
 /************************** Services **************************/
 
 ## Commit cc-05-creating-services
+** Everything is just a class- controllers, services (not components and modules though...)
 
+1. Create common/models // going with this for now, even though this is a service
+```
+class CategoriesModel {
+    constructor() {
+        this.categories = [
+            {"id": 0, "name": "Development"},
+            {"id": 1, "name": "Design"},
+            {"id": 2, "name": "Exercise"},
+            {"id": 3, "name": "Humor"}
+        ];
+    }
+}
 
+export default CategoriesModel;
+```
+
+2. Create module for common
+```
+import angular from 'angular';
+import CategoriesModel from './models/categories.model';
+
+const CommonModule = angular.module('common', [])
+    .service('CategoriesModel', CategoriesModel);
+
+export default CommonModule;
+```
+
+3. Import in app.js
+```
+    ...
+    import CommonModule from './common/common.module';
+    ...
+        CommonModule.name
+    ...
+```
  
+4. Change categories controller to use this 'service' model
+- Like ngx, inject services in the constructor.
+- use 'ngInject'; to fix strict mode error to resolve dependencies
+```
+class CategoriesController {
+    // inject models/services in constructor
+    constructor(CategoriesModel) {
+        'ngInject'; // needed in strict mode
+        this.categories = CategoriesModel.categories; // mock data, not HTTP call
+    }
+}
+
+export default CategoriesController;
+```
+
+/************************** Dependency Injection **************************/
+
+## Commit cc-06-dependency-injection
+
+Note on Functions
+- add directly to class rather than using function keyword
+```
+    add(category) {
+        this.category = category;
+    }
+    returnCategory() {
+        return this.category; // this refers to the class
+    }
+```
+
+Using the $q service
+1. Inject in constructor
+2. Use 'ngInject'
+3. Assign to class via this.
+4. Resolve with this.$q.when()
+
+```
+// categories.model.js
+class CategoriesModel {
+    'ngInject'; // fix errors
+    this.$q = $q; // assign to local variable
+    constructor($q) {
+        ...
+    }
+    
+    getCategories() {
+        return this.$q.when(this.categories);
+    }
+```
+5. Consume the promise in the controller
+``` 
+class CategoriesController {
+    constructor(CategoriesModel) {
+        'ngInject';
+        CategoriesModel.getCategories()
+            .then( result => this.categories = result);
+    ...
+```
+
+/************************** Dumb Components **************************/
+## Commit cc-07-lifecycle-hooks // yes, part of this commit
+
+// Dumb components
+- have no logic
+- only talk to view and 
+- only relate user events back to parent component
+* makes testing easier to pinpoint
+
+Example of dumb component, no controller
+- Data is pumped in 
+- It displays the data
+- That's it, no logic
+
+1. Create the dumb component
+```
+// category-item.component.js
+import template from './category-item.html';
+import './category-item.styl';
+
+const CategoryItemComponent = {
+    bindings: {
+      category: '<' // one-way data-binding
+    },
+    template,
+    controllerAs: 'categoryItemCtrl' // no controller, but use controllerAs to attach to bindings in the view
+};
+
+export default CategoryItemComponent;
+```
+
+2. create the dumb module
+```
+import angular from 'angular';
+import CategoriesComponent from './categories.component';
+import CategoryItemModule from './category-item/category-item.module';
+
+const CategoriesModule = angular.module('components.categories',[
+    CategoryItemModule.name
+]).component('categories', CategoriesComponent);
+
+export default CategoriesModule;
+```
+
+3. import the dumb child into the smart parent
+```
+// categories.module.js
+...
+import CategoryItemModule from './category-item/category-item.module';
+
+const CategoriesModule = angular.module('components.categories',[
+    CategoryItemModule.name
+])...
+```
+
+4. Update the smart parent's template to use the new child component
+- Change: 
+```
+<li class="category-item"
+			ng-repeat="category in categoriesListCtrl.categories">{{category.name}}</li>
+```
+
+- To:
+```
+		<li ng-repeat="category in categoriesListCtrl.categories">
+			<category-item category="category"></category-item>
+		</li>
+```
+
+// Talk to parent
+1. Use & syntax, define method
+```
+// category-item.component.js
+...
+  bindings: {
+    category: '<', // one-way data-binding
+    selected: '&' // talk to parent
+  },
+...
+```
+
+2. Send object back up to parent
+```
+// category-item.html
+...
+    ng-click="categoryItemCtrl.selected({category:categoryItemCtrl.category})"
+...
+```
+
+3. Capture selected event from parent
+```
+// categories.html
+...
+    <category-item
+        category="category"
+        selected="categoriesListCtrl.onCategorySelected(category)"></category-item>
+...
+```
+
+6. Define on- event in parent controller
+```
+// categories.controller.js
+
+```
+
+
+
+
+/************************** Lifecycle Hooks **************************/
+## Commit cc-07-lifecycle-hooks
+
+
+$onInit
+- for API data
+- ** don't load API data in constructor
+
+```
+// categories.controller.js
+    ...
+    constructor(CategoriesModel) {
+        'ngInject'; 
+        this.CategoriesModel = CategoriesModel;
+    }
+    
+    $onInit() {
+        this.CategoriesModel.getCategories()
+            .then( result => this.categories = result );
+    }
+    ...
+```
+
+
+
+
+
+
+
 
 
 
