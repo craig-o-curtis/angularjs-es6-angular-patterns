@@ -360,6 +360,68 @@ class CategoriesController {
 - only relate user events back to parent component
 * makes testing easier to pinpoint
 
+Example of dumb component, no controller
+- Data is pumped in 
+- It displays the data
+- That's it, no logic
+
+1. Create the dumb component
+```
+// category-item.component.js
+import template from './category-item.html';
+import './category-item.styl';
+
+const CategoryItemComponent = {
+    bindings: {
+      category: '<' // one-way data-binding
+    },
+    template,
+    controllerAs: 'categoryItemCtrl' // no controller, but use controllerAs to attach to bindings in the view
+};
+
+export default CategoryItemComponent;
+```
+
+2. create the dumb module
+```
+import angular from 'angular';
+import CategoriesComponent from './categories.component';
+import CategoryItemModule from './category-item/category-item.module';
+
+const CategoriesModule = angular.module('components.categories',[
+    CategoryItemModule.name
+]).component('categories', CategoriesComponent);
+
+export default CategoriesModule;
+```
+
+3. import the dumb child into the smart parent
+```
+// categories.module.js
+...
+import CategoryItemModule from './category-item/category-item.module';
+
+const CategoriesModule = angular.module('components.categories',[
+    CategoryItemModule.name
+])...
+```
+
+4. Update the smart parent's template to use the new child component
+- Change: 
+```
+<li class="category-item"
+			ng-repeat="category in categoriesListCtrl.categories">{{category.name}}</li>
+```
+
+- To:
+```
+
+```
+
+
+
+
+
 ## Commit cc-07-lifecycle-hooks
 
 
