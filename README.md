@@ -352,6 +352,11 @@ class CategoriesController {
     ...
 ```
 
+/************************** Lifecycle Hooks **************************/
+
+## Commit cc-07-lifecycle-hooks
+
+
 
 
 
