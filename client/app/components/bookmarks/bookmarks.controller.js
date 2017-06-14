@@ -17,7 +17,6 @@ class BookmarksController {
         this.getCurrentCategory 
             = this.CategoriesModel.getCurrentCategory.bind(this.CategoriesModel);
     }
-
 }
 
 export default BookmarksController;

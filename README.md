@@ -499,10 +499,33 @@ $onInit Example:
 
 
 /************************** Connected Presentational Components **************************/
+
 ## Commit cc-08-connected-presentational-components 
 
+1. Issue -- 'this' losing its reference
+2. Solution - .bind()
+```
+// broken this example
+class BookmarksController {
+    ...
+    $onInit() {
+        ...
+        this.getCurrentCategory 
+            // 'this' causes error, conflict of 'this' in CategoriesModel vs. BookmarsController
+            = this.CategoriesModel.getCurrentCategory();
+        ...
+```
 
-
+```
+// fixed reference with .bind(original.model/controller)
+class BookmarksController {
+    ...
+    $onInit() {
+        ...
+        this.getCurrentCategory 
+            = this.CategoriesModel.getCurrentCategory.bind(this.CategoriesModel);
+        ...
+```
 
 
 
