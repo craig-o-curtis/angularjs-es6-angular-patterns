@@ -6,7 +6,11 @@ class BookmarksController {
 
     $onInit() {
         this.BookmarksModel.getBookmarks()
-            .then( results => this.bookmarks = results )
+            .then( results => {
+                this.bookmarks = results
+                console.log('results')
+                console.log(this.bookmarks);
+            } )
     }
 
 }

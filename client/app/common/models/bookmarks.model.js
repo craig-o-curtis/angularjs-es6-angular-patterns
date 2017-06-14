@@ -16,7 +16,7 @@ class BookmarksModel {
         ];
     }
 
-    getBookmakrs() {
+    getBookmarks() {
         return this.$q.when(this.bookmarks);
     }
 }

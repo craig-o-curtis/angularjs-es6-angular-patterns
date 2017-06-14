@@ -5,7 +5,7 @@ import './bookmarks.styl';
 const BookmarksComponent = {
     template,
     controller: BookmarksController,
-    controllerAs: 'bokmarksListCtrl'
+    controllerAs: 'bookmarksListCtrl'
 }
 
 export default BookmarksComponent;
