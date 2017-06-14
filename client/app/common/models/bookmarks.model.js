@@ -4,7 +4,11 @@ class BookmarksModel {
 
         this.$q = $q;
         this.bookmarks = [
-            {"id":1, "title": "AngularJS", "url": "http://angularjs.org", "category": "Development" },
+            {
+                "id": 1,
+                "title": "AngularJS",
+                "url": "http://angularjs.org",
+                "category": "Development" },
             {"id":2, "title": "Egghead.io", "url": "http://egghead.io", "category": "Development" },
             {"id":3, "title": "A List Apart", "url": "http://alistapart.com/", "category": "Design" },
             {"id":4, "title": "One Page Love", "url": "http://onepagelove.com/", "category": "Design" },
@@ -16,7 +20,7 @@ class BookmarksModel {
         ];
     }
 
-    getBookmakrs() {
+    getBookmarks() {
         return this.$q.when(this.bookmarks);
     }
 }
