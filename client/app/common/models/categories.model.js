@@ -19,8 +19,7 @@ class CategoriesModel {
     }
 
     getCurrentCategory() {
-        console.log('THIS ', this);
-
+        // need to use .bind() from calling controller
         return this.currentCategory;
     }
     setCurrentCategory(newCat) {

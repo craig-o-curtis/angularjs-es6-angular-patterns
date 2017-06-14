@@ -502,6 +502,12 @@ $onInit Example:
 
 ## Commit cc-08-connected-presentational-components 
 
+// Nothing in videos, skipped ahead to .bind() next commit
+
+/************************** Binding to Models with .bind() **************************/
+
+## Commit cc-09-binding-to-models
+
 1. Issue -- 'this' losing its reference
 2. Solution - .bind()
 ```
@@ -522,12 +528,17 @@ class BookmarksController {
     ...
     $onInit() {
         ...
+        /** this.OutsideService.Method.bind(this.OutsideService) **/
         this.getCurrentCategory 
             = this.CategoriesModel.getCurrentCategory.bind(this.CategoriesModel);
         ...
 ```
 
 
+
+/************************** Isloating State Mutations **************************/
+
+## Commit cc-10-isloating-state-mutations
 
 
 
