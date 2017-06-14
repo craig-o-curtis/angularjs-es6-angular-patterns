@@ -1,3 +1,5 @@
+import { uniqueId, findIndex, remove } from 'lodash';
+
 class BookmarksModel {
     constructor($q) {
         'ngInject'
@@ -22,6 +24,20 @@ class BookmarksModel {
 
     getBookmarks() {
         return this.$q.when(this.bookmarks);
+    }
+
+    createBookmark(bookmark) {
+        bookmark.id = uniqueId();
+        this.bookmarks.push(bookmark);
+    }
+
+    updateBookmark(bookmark) {
+        const index = findIndex(this.bookmarks, b => b.id === bookmark.id);
+        this.bookmarks[index] = bookmark;
+    }
+
+    deleteBookmark(bookmark) {
+        remove(this.bookmarks, b => b.id === bookmark.id);
     }
 }
 

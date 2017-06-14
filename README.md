@@ -539,6 +539,26 @@ class BookmarksController {
 
 ## Commit cc-10-isloating-state-mutations
 
+// How to isolate mutable state within an component, like AngularX
+
+### Using Lodash
+1. Import the methods you want!
+2. Use the methods, without the _!
+```
+import { uniqueId, findIndex, remove } from 'lodash';
+...
+    createBookmark(bookmark) {
+        bookmark.id = uniqueId();
+        this.bookmarks.push(bookmark);
+    }
+
+    updateBookmark(bookmark) {
+        const index = findIndex(this.bookmarks, b => b.id === bookmark.id);
+        this.bookmarks[index] = bookmark;
+    }
+    
+...
+```
 
 
 
