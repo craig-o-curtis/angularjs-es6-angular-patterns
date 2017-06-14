@@ -475,9 +475,10 @@ $onInit() { }
 - ** don't load API data in constructor
 
 postLink() { }
-
 $destroy() { }
 
+
+$onInit Example: 
 ```
 // categories.controller.js
     ...
@@ -492,6 +493,8 @@ $destroy() { }
     }
     ...
 ```
+
+
 
 
 

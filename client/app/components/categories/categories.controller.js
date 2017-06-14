@@ -2,11 +2,11 @@ class CategoriesController {
     // inject models/services in constructor
     constructor(CategoriesModel) {
         'ngInject'; // needed in strict mode to resolve dependencies
-
         // Set service to local method
         this.CategoriesModel = CategoriesModel;
-        console.log('constructor');
     }
+
+    $onChanges() { }
 
     // onInit for loading API data / promised dta
     $onInit() {
@@ -15,26 +15,8 @@ class CategoriesController {
             .then( result => this.categories = result );
     }
 
-    $onChanges() {
-        console.log('$onChanges fired');
-    }
-
-    $doCheck() {
-        console.log('doCheck called');
-    }
-
-    $preLink() {
-        console.log('prelink called');
-    }
-
-    $postLink() {
-        console.log('postLink called');
-    }
-
-    $afterViewInit() {
-        console.log('afterview init');
-    }
-
+    $postLink() { }
+    $doCheck() { }
 
     $onDestroy() {
         console.log('destroy');
