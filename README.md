@@ -561,6 +561,39 @@ import { uniqueId, findIndex, remove } from 'lodash';
 ```
 
 
+#### Using outside service methods locally
+1. Set a this.method in the $onInit to an outside service method
+2. No need to handle params in the calling ctrl
+```
+    // bookmarks.controller.js
+    $onInit() {
+        ...
+        /** sets local ctrl method to an outside service method */
+            /** no need to specify params here */
+        this.deleteBookmark = this.BookmarksModel.deleteBookmark;
+        ...
+    }
+```
+
+3. BUT REMEMBER to pass the param from the view :
+``` 
+// bookmarks.html
+...
+    <button type="button" class="close"
+        ng-click="bookmarksListCtrl.deleteBookmark(bookmark)">
+...
+```
+
+4. Handle the params from that pulled-in service
+```
+// bookmarks.model.js
+    ...
+    deleteBookmark(bookmark) {
+        alert('deeleeteed ', bookmark);
+        remove(this.bookmarks, b => b.id === bookmark.id);
+    }
+    ...
+```
 
 
 

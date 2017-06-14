@@ -11,7 +11,9 @@ class BookmarksController {
 
         this.getCurrentCategory 
             = this.CategoriesModel.getCurrentCategory.bind(this.CategoriesModel);
-
+        
+        /** sets local ctrl method to an outside service method */
+            /** no need to specify params here */
         this.deleteBookmark = this.BookmarksModel.deleteBookmark;
         this.reset();
     }

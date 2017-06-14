@@ -1,7 +1,13 @@
 <div class="bookmarks">
     <div ng-repeat="bookmark in bookmarksListCtrl.bookmarks | filter: {category : bookmarksListCtrl.getCurrentCategory().name}">
-        <button type="button" class="close">x</button>
-        <button type="button" class="btn btn-link">
+        <!-- Delete -->
+        <button type="button" class="close"
+            ng-click="bookmarksListCtrl.deleteBookmark(bookmark)">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <!-- Edit -->
+        <button type="button" class="btn btn-link"
+            ng-click="bookmarksListCtrl.edit(bookmark)">
             <span class="glyphicon glyphicon-pencil"></span>
         </button>
         <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
