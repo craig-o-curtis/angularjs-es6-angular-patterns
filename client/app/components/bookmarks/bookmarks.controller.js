@@ -4,9 +4,9 @@ class BookmarksController {
     constructor(BookmarksModel, CategoriesModel) {
         'ngInject'
         // ABOVE THE FOLD
-        this.currentBookmark;
-        this.bookmarks;
-        this.deleteBookmark;
+        // this.currentBookmark;
+        // this.bookmarks;
+        // this.deleteBookmark; // defined in $onInit
         // ABOVE THE FOLD
         this.BookmarksModel = BookmarksModel;
         this.CategoriesModel = CategoriesModel;
@@ -34,6 +34,11 @@ class BookmarksController {
         };
     }
 
+    // another way to redefine a method declared in $onInit
+    // deleteBookmark() {
+    //     return this.deleteBookmark();
+    // }
+
     createBookmark() {
         this.currentBookmark = this.initNewBookmark();
     }
@@ -57,6 +62,7 @@ class BookmarksController {
 
     reset() {
         this.currentBookmark = null;
+        // needs to communicate to child save-bookmark cmp that this current bookmark is now null
     }
 
 }

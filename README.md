@@ -615,7 +615,13 @@ import { uniqueId, findIndex, remove } from 'lodash';
         ...
     }
 ```
-
+OR - for methods, you could redefine them as follows:
+```
+    // another way to redefine a method declared in $onInit
+    deleteBookmark() {
+        return this.deleteBookmark();
+    }
+```
 
 
 
