@@ -19,7 +19,8 @@ class CategoriesModel {
     }
 
     getCurrentCategory() {
-        console.log(this.currentCategory);
+        console.log('THIS ', this);
+
         return this.currentCategory;
     }
     setCurrentCategory(newCat) {
