@@ -21,8 +21,6 @@ class CategoriesController {
     $onDestroy() {
         console.log('destroy');
     }
-
-
     // listen for event from child component via '&'
     onCategorySelected(category) {
         console.log(`You clicked ${category.name}`);
