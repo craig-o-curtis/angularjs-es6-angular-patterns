@@ -1,5 +1,5 @@
 <div class="bookmarks">
-    <div ng-repeat="bookmark in bookmarksListCtrl.bookmarks">
+    <div ng-repeat="bookmark in bookmarksListCtrl.bookmarks | filter: {category : bookmarksListCtrl.getCurrentCategory().name}">
         <button type="button" class="close">x</button>
         <button type="button" class="btn btn-link">
             <span class="glyphicon glyphicon-pencil"></span>

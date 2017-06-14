@@ -20,7 +20,14 @@ class CategoriesController {
     $onDestroy() { }
     // listen for event from child component via '&'
     onCategorySelected(category) {
-        console.log(`You clicked ${category.name}`);
+        // console.log(`You clicked ${category.name}`);
+        this.CategoriesModel.setCurrentCategory(category);
+    }
+
+    isCurrentCategory(category) {
+        // notice use of && as short-circuit conditional
+        return this.CategoriesModel.getCurrentCategory() &&
+            this.CategoriesModel.getCurrentCategory().id === category.id;
     }
 }
 

@@ -1,16 +1,21 @@
 class BookmarksController {
-    constructor(BookmarksModel) {
+    constructor(BookmarksModel, CategoriesModel) {
         'ngInject'
         this.BookmarksModel = BookmarksModel;
+        this.CategoriesModel = CategoriesModel;
     }
 
     $onInit() {
         this.BookmarksModel.getBookmarks()
             .then( results => {
                 this.bookmarks = results
-                console.log('results')
-                console.log(this.bookmarks);
             } )
+
+        // no parent inheriting, need to call service
+            // also used for filter in view
+            // be careful not to overwrite 'this" -- use bind
+        this.getCurrentCategory 
+            = this.CategoriesModel.getCurrentCategory.bind(this.CategoriesModel);
     }
 
 }
