@@ -535,7 +535,6 @@ class BookmarksController {
 ```
 
 
-
 /************************** Isloating State Mutations **************************/
 
 ## Commit cc-10-isloating-state-mutations
