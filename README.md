@@ -463,10 +463,20 @@ const CategoriesModule = angular.module('components.categories',[
 /************************** Lifecycle Hooks **************************/
 ## Commit cc-07-lifecycle-hooks
 
+constructor( ) {}
+- 
 
-$onInit
+$onChanges() { }
+- fired first, even before $onInit
+- fired after any controller changes
+
+$onInit() { }
 - for API data
 - ** don't load API data in constructor
+
+postLink() { }
+
+$destroy() { }
 
 ```
 // categories.controller.js
