@@ -1,6 +1,13 @@
 class BookmarksController {
+    // declare locals
+ 
     constructor(BookmarksModel, CategoriesModel) {
         'ngInject'
+        // ABOVE THE FOLD
+        this.currentBookmark;
+        this.bookmarks;
+        this.deleteBookmark;
+        // ABOVE THE FOLD
         this.BookmarksModel = BookmarksModel;
         this.CategoriesModel = CategoriesModel;
     }

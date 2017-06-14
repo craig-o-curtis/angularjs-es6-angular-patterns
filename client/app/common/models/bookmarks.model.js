@@ -37,7 +37,7 @@ class BookmarksModel {
     }
 
     deleteBookmark(bookmark) {
-        alert('deeleeteed ', bookmark);
+        console.info(bookmark);
         remove(this.bookmarks, b => b.id === bookmark.id);
     }
 }

@@ -595,6 +595,31 @@ import { uniqueId, findIndex, remove } from 'lodash';
     ...
 ```
 
+### Best Practice - Above the Fold
+- Some of the methods and properties not explicitly declared get lost in teh code. 
+- These methods get defined deep within the code, and are not easily readable.
+    // bookmarks.controller.js
+    * this.currentBookmark
+    * this.bookmarks
+    * this.deleteBookmark
+- Therefore, using John Papa's idea of Above the Fold, a way to handle this is just declare (not assign) the methods and props implicitely defined inside teh constructor.
+```
+    // bookmarks.controller.js
+    constructor(BookmarksModel, CategoriesModel) {
+        'ngInject'
+        // ABOVE THE FOLD
+        this.currentBookmark;
+        this.bookmarks;
+        this.deleteBookmark;
+        // ABOVE THE FOLD
+        ...
+    }
+```
+
+
+
+
+
 
 
 
