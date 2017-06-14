@@ -498,6 +498,8 @@ $onInit Example:
 
 
 
+/************************** Connected Presentational Components **************************/
+## Commit cc-08-connected-presentational-components 
 
 
 

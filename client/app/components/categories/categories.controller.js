@@ -10,7 +10,6 @@ class CategoriesController {
 
     // onInit for loading API data / promised dta
     $onInit() {
-        console.log('$onInit fired');
         this.CategoriesModel.getCategories()
             .then( result => this.categories = result );
     }
@@ -18,9 +17,7 @@ class CategoriesController {
     $postLink() { }
     $doCheck() { }
 
-    $onDestroy() {
-        console.log('destroy');
-    }
+    $onDestroy() { }
     // listen for event from child component via '&'
     onCategorySelected(category) {
         console.log(`You clicked ${category.name}`);
