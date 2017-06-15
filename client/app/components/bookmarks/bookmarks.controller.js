@@ -44,6 +44,7 @@ class BookmarksController {
     }
 
     editBookmark(bookmark) {
+        console.log('edit clicked')
         this.currentBookmark = bookmark;
     }
 
