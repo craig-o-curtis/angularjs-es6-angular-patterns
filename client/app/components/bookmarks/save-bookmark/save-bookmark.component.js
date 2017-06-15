@@ -1,4 +1,5 @@
 import template from './save-bookmark.html';
+import SaveBookmarkController from './save-bookmark.controller';
 import './save-bookmark.styl';
 
 // this is a non-declared controller
@@ -9,6 +10,7 @@ const SaveBookmarkComponent = {
         cancel: '&'
     },
     template,
+    controller: SaveBookmarkController,
     controllerAs: 'saveBookmarkCtrl'
 }
 
