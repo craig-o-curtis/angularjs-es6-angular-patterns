@@ -671,19 +671,45 @@ This local editedBookmark new object can be used in updating form on separate ob
 /************************** Event Bus **************************/
 
 ## Commit cc-11-event-bus
+** Tracking state -- Notifying components changes made
+** Using $rootScope to track state / as an event bus
+```
+// categories.model.js
+    ...
+    constructor($q, $rootScope) {
+        'ngInject';
+        this.$q = $q;
+        this.$rootScope = $rootScope; // to track state
+    ...
+    setCurrentCategory(newCat) {
+        let changed = (this.currentCategory === newCat);
+        this.currentCategory = newCat;
+        this.$rootScope.$broadcast('onCurrentCategoryUpdated'); // broadcast event
+        return changed;
+    }
+    ...
+```
+
+1. inject $scope
+2. listen for event broadcast
+
+```
+// bookmarks.controller.js
+    ...
+    constructor(BookmarksModel, CategoriesModel, $scope) {
+        'ngInject'
+        this.$scope = $scope;
+    ...
+    $onInit() {
+        ...
+        this.$scope.$on('onCurrentCategoryUpdated', this.reset.bind(this));
+    ...
+
+```
+
+
+/************************** Component Testing **************************/
+
+## Commit cc-12-component-testing
 ** 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

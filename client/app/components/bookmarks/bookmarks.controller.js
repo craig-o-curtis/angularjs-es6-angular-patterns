@@ -1,13 +1,14 @@
 class BookmarksController {
     // declare locals
  
-    constructor(BookmarksModel, CategoriesModel) {
+    constructor(BookmarksModel, CategoriesModel, $scope) {
         'ngInject'
         // ABOVE THE FOLD
         // this.currentBookmark;
         // this.bookmarks;
         // this.deleteBookmark; // defined in $onInit
         // ABOVE THE FOLD
+        this.$scope = $scope;
         this.BookmarksModel = BookmarksModel;
         this.CategoriesModel = CategoriesModel;
     }
@@ -15,6 +16,8 @@ class BookmarksController {
     $onInit() {
         this.BookmarksModel.getBookmarks()
             .then( results => this.bookmarks = results );
+
+        this.$scope.$on('onCurrentCategoryUpdated', this.reset.bind(this));
 
         this.getCurrentCategory 
             = this.CategoriesModel.getCurrentCategory.bind(this.CategoriesModel);
@@ -44,7 +47,6 @@ class BookmarksController {
     }
 
     editBookmark(bookmark) {
-        console.log('edit clicked')
         this.currentBookmark = bookmark;
     }
 

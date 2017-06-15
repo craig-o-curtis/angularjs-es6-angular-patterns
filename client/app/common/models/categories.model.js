@@ -1,7 +1,8 @@
 class CategoriesModel {
-    constructor($q) {
+    constructor($q, $rootScope) {
         'ngInject'; // fix errors
         this.$q = $q; // assign to local variable
+        this.$rootScope = $rootScope; // to track state
 
         // mechanism to store current category
         this.currentCategory = null;
@@ -25,6 +26,7 @@ class CategoriesModel {
     setCurrentCategory(newCat) {
         let changed = (this.currentCategory === newCat);
         this.currentCategory = newCat;
+        this.$rootScope.$broadcast('onCurrentCategoryUpdated'); // broadcast event
         return changed;
     }
 
