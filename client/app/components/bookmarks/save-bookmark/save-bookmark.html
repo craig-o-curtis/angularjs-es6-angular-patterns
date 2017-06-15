@@ -6,16 +6,18 @@
     <h4 ng-if="saveBookmarkCtrl.bookmark.id">Editing {{saveBookmarkCtrl.bookmark.title}}</h4>
 
     <form role="form" class="edit-form" novalidate
-        ng-submit="saveBookmarkCtrl.save({bookmark:saveBookmarkCtrl.bookmark})" >
+        ng-submit="saveBookmarkCtrl.save({bookmark: saveBookmarkCtrl.editedBookmark })" >
         <!-- Title -->
         <div class="form-group">
             <label for="bookmarkTitle">Bookmark Title</label>
-            <input type="text" id="bookmarkTitle" class="form-control" ng-model="saveBookmarkCtrl.bookmark.title" placeholder="Enter title">
+            <input type="text" id="bookmarkTitle" class="form-control"
+                ng-model="saveBookmarkCtrl.editedBookmark.title" placeholder="Enter title">
         </div>
         <!-- URL -->
         <div class="form-group">
             <label for="bookmarkUrl">Bookmark URL</label>
-            <input type="text" id="bookmarkUrl" class="form-control" ng-model="saveBookmarkCtrl.bookmark.url" placeholder="Enter URL">
+            <input type="text" id="bookmarkUrl" class="form-control"
+                ng-model="saveBookmarkCtrl.editedBookmark.url" placeholder="Enter URL">
         </div>
 
         <!-- Actions -->

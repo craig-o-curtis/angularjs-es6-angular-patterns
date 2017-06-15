@@ -625,6 +625,56 @@ OR - for methods, you could redefine them as follows:
 
 
 
+Avoid 2-way binding --- Change and Save or Discard
+1. Create save-bookmark.controller.js with $onChanges
+```
+    $onChanges() {
+        // when click edit icon, create new property
+        this.editedBookmark = Object.assign({}, this.bookmark);
+        // returns an object, which is a clone of editedBookmark in save-bookmark.html
+    }
+```
+
+This local editedBookmark new object can be used in updating form on separate object in save-bookmark.html
+* compare saveBookmarkCtrl.bookmark vs. saveBookmarkCtrl.editedBookmark
+```
+<div class="save-bookmark">
+    <h4 ng-if="!saveBookmarkCtrl.bookmark.id">Create a bookmark in 
+        <span class="text-muted">{{saveBookmarkCtrl.bookmark.category}}</span>
+    </h4>
+
+    <h4 ng-if="saveBookmarkCtrl.bookmark.id">Editing {{saveBookmarkCtrl.bookmark.title}}</h4>
+
+    <form role="form" class="edit-form" novalidate
+        ng-submit="saveBookmarkCtrl.save({bookmark: saveBookmarkCtrl.editedBookmark })" >
+        <!-- Title -->
+        <div class="form-group">
+            <label for="bookmarkTitle">Bookmark Title</label>
+            <input type="text" id="bookmarkTitle" class="form-control"
+                ng-model="saveBookmarkCtrl.editedBookmark.title" placeholder="Enter title">
+        </div>
+        <!-- URL -->
+        <div class="form-group">
+            <label for="bookmarkUrl">Bookmark URL</label>
+            <input type="text" id="bookmarkUrl" class="form-control"
+                ng-model="saveBookmarkCtrl.editedBookmark.url" placeholder="Enter URL">
+        </div>
+
+        <!-- Actions -->
+        <button type="submit" class="btn btn-info btn-lg">Save</button>
+        <button type="button" class="btn btn-default btn-lg pull-right"
+            ng-click="saveBookmarkCtrl.cancel()">Cancel</button>
+    </form>
+</div>
+```
+
+/************************** Event Bus **************************/
+
+## Commit cc-11-event-bus
+** 
+
+
+
 
 
 
