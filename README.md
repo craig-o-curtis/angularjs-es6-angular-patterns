@@ -539,6 +539,90 @@ class BookmarksController {
 
 ## Commit cc-10-isloating-state-mutations
 
+// How to isolate mutable state within an component, like AngularX
+
+### Using Lodash
+1. Import the methods you want!
+2. Use the methods, without the _!
+```
+import { uniqueId, findIndex, remove } from 'lodash';
+...
+    createBookmark(bookmark) {
+        bookmark.id = uniqueId();
+        this.bookmarks.push(bookmark);
+    }
+
+    updateBookmark(bookmark) {
+        const index = findIndex(this.bookmarks, b => b.id === bookmark.id);
+        this.bookmarks[index] = bookmark;
+    }
+    
+...
+```
+
+
+#### Using outside service methods locally
+1. Set a this.method in the $onInit to an outside service method
+2. No need to handle params in the calling ctrl
+```
+    // bookmarks.controller.js
+    $onInit() {
+        ...
+        /** sets local ctrl method to an outside service method */
+            /** no need to specify params here */
+        this.deleteBookmark = this.BookmarksModel.deleteBookmark;
+        ...
+    }
+```
+
+3. BUT REMEMBER to pass the param from the view :
+``` 
+// bookmarks.html
+...
+    <button type="button" class="close"
+        ng-click="bookmarksListCtrl.deleteBookmark(bookmark)">
+...
+```
+
+4. Handle the params from that pulled-in service
+```
+// bookmarks.model.js
+    ...
+    deleteBookmark(bookmark) {
+        alert('deeleeteed ', bookmark);
+        remove(this.bookmarks, b => b.id === bookmark.id);
+    }
+    ...
+```
+
+### Best Practice - Above the Fold
+- Some of the methods and properties not explicitly declared get lost in teh code. 
+- These methods get defined deep within the code, and are not easily readable.
+    // bookmarks.controller.js
+    * this.currentBookmark
+    * this.bookmarks
+    * this.deleteBookmark
+- Therefore, using John Papa's idea of Above the Fold, a way to handle this is just declare (not assign) the methods and props implicitely defined inside teh constructor.
+```
+    // bookmarks.controller.js
+    constructor(BookmarksModel, CategoriesModel) {
+        'ngInject'
+        // ABOVE THE FOLD
+        this.currentBookmark;
+        this.bookmarks;
+        this.deleteBookmark;
+        // ABOVE THE FOLD
+        ...
+    }
+```
+OR - for methods, you could redefine them as follows:
+```
+    // another way to redefine a method declared in $onInit
+    deleteBookmark() {
+        return this.deleteBookmark();
+    }
+```
+
 
 
 

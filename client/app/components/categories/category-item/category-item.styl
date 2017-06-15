@@ -1,5 +1,5 @@
-.category-item
-    color #5be0de
+
+li .category-item
     font-size 30px
     text-decoration none
     padding 10px 15px
@@ -10,4 +10,15 @@
     &:hover, &:focus
         text-decoration none
         background-color #D5DBD8
-        color #2B2B2B
+
+li.active .category-item
+    color black
+
+    &:hover, &:focus
+        color #2B2828
+
+li:not(.active) .category-item
+    color #5be0de
+
+    &:hover, &:focus
+        color #2B2828
