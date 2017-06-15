@@ -714,3 +714,4 @@ This local editedBookmark new object can be used in updating form on separate ob
 ** Using $componentController with ngMock
 
 
+$ npm test
