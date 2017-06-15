@@ -711,5 +711,6 @@ This local editedBookmark new object can be used in updating form on separate ob
 /************************** Component Testing **************************/
 
 ## Commit cc-12-component-testing
-** 
+** Using $componentController with ngMock
+
 
